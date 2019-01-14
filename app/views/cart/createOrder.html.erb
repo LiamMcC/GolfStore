@@ -1,0 +1,82 @@
+<div id="itemsContainer">
+    <h1>Thank You</h1>
+    <p>You have just placed an order </p>
+</div>
+
+
+
+
+<table id="customers">
+    <tr>
+        
+    <% @orders.limit(1).order(id: :desc).each do |order| %>
+    <td>order Reference: <%= order.id %></td>
+    <% @orderNum = order.id %>
+    <% end %>
+    
+    </tr>
+</table>
+
+<table id="customers">
+    <% @total = 0 %>
+    
+    <% @orderitems.each do |id, quantity| %>
+    <tr>
+        <% item = Orderitem.find_by_id(id) %>
+        <td><%= item.title %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.price, :unit => "€") %></td>
+        <td><%= number_to_currency(item.quantity * item.price, :unit => "€") %></td>
+        
+    </tr>
+    
+    <% gTotal =(item.quantity * item.price) %>
+    
+    <% @total += gTotal %>
+    
+    <% end %> 
+    <tr>
+    <td>Order Total: €<%= @total %> </td>
+    
+    <% shipping = 25 %>
+    
+    <% @overall = @total + shipping %>
+    <td>Shipping: €25</td>
+    <td>Overall Order Total: <%= number_to_currency(@overall, :unit => "€") %></td>
+    
+    </tr>
+    </table>
+    
+  
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_xclick">
+<input type="hidden" name="business" value="company2@liammccabe.ie">
+<input type="hidden" name="item_name" value="Golf Store Order Number <%= @orderNum %>">
+<input type="hidden" name="currency_code" value="EUR">
+<input type="hidden" name="amount" value="<%= @overall %>">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+<input type="hidden" name="return" value="https://rails-container-liamme.c9users.io/aboutSend/<%= @orderNum %>" >
+<input type="hidden" name="notify_url" value="https://rails-container-liamme.c9users.io/aboutSend/<%= @orderNum %>">
+</form> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<input type="hidden" name="notify_url" value="https://rails-container-liamme.c9users.io/about/<%= @orderNum %>">
+-->

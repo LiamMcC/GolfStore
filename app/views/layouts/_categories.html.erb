@@ -1,0 +1,12 @@
+<% @categories.each do |category| %>
+
+<div class="itemhols">
+    <h1><%= category.title %></h1>
+    <a href="/category/<%= category.title %>"><img src="/assets/Site/<%= category.image %>" /></a>
+    
+    <P><%= category.description %></P>
+    <p><a href="/category/<%= category.title %>"><%= category.title %></a></p>
+   
+</div>
+
+<% end %>

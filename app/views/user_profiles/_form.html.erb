@@ -1,0 +1,54 @@
+<%= form_with(model: user_profile, local: true) do |form| %>
+  <% if user_profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user_profile.errors.count, "error") %> prohibited this user_profile from being saved:</h2>
+
+      <ul>
+      <% user_profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :user_profile_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lastname %>
+    <%= form.text_field :lastname, id: :user_profile_lastname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :street %>
+    <%= form.text_field :street, id: :user_profile_street %>
+  </div>
+
+  <div class="field">
+    <%= form.label :county %>
+    <%= form.text_field :county, id: :user_profile_county %>
+  </div>
+
+  <div class="field">
+    <%= form.label :postal_code %>
+    <%= form.text_field :postal_code, id: :user_profile_postal_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, id: :user_profile_city %>
+  </div>
+
+  <div class="field">
+    You are <%= current_user.id %>
+    <%= form.label :user_id %>
+     <%= form.hidden_field :user_id, id: :user_profile_user_id, :value => current_user.id %>
+   
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

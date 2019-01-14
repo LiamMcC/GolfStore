@@ -1,0 +1,26 @@
+     <header class="headSec">
+      <h1>Liams Golf Store</h1>
+      
+      <ul>
+        <li><%= link_to "Home",  "/" %></li>
+        <li><%= link_to "Products",  "/items" %></li>
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Help", help_path %></li>
+        <li><%= link_to "View Cart", "/cart" %></li>
+        
+        <% if user_signed_in? %>
+        
+        <li><a h ref="#">Hello <%= current_user.email %> Admin: <%= current_user.admin %></a></li>
+        <li><%= link_to 'Log Out', destroy_user_session_path, :method => :delete %></li>
+        <li><%= link_to 'Profile', edit_user_registration_path %></li>
+        <% else %>
+        
+        <li><%= link_to 'Create Account', new_user_registration_path %></li>
+        <li><%= link_to 'Log In', new_user_session_path %></li>
+        
+        <% end %>
+        
+      </ul>
+      
+      
+    </header>
